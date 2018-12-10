@@ -32,12 +32,14 @@
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.chDynamicSeries = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnOpen = new System.Windows.Forms.Button();
+            this.chDynamicSeries = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tbBeta = new System.Windows.Forms.TrackBar();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chDynamicSeries)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbBeta)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -52,6 +54,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.tbBeta);
             this.tabPage1.Controls.Add(this.btnOpen);
             this.tabPage1.Controls.Add(this.chDynamicSeries);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -62,15 +65,15 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // btnOpen
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(192, 74);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.btnOpen.Location = new System.Drawing.Point(529, 107);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(152, 38);
+            this.btnOpen.TabIndex = 1;
+            this.btnOpen.Text = "Open file...";
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // chDynamicSeries
             // 
@@ -86,15 +89,23 @@
             this.chDynamicSeries.TabIndex = 0;
             this.chDynamicSeries.Text = "chart1";
             // 
-            // btnOpen
+            // tabPage2
             // 
-            this.btnOpen.Location = new System.Drawing.Point(529, 107);
-            this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(152, 38);
-            this.btnOpen.TabIndex = 1;
-            this.btnOpen.Text = "Open file...";
-            this.btnOpen.UseVisualStyleBackColor = true;
-            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(791, 423);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tbBeta
+            // 
+            this.tbBeta.Location = new System.Drawing.Point(478, 188);
+            this.tbBeta.Maximum = 100;
+            this.tbBeta.Name = "tbBeta";
+            this.tbBeta.Size = new System.Drawing.Size(252, 45);
+            this.tbBeta.TabIndex = 2;
             // 
             // Form1
             // 
@@ -106,7 +117,9 @@
             this.Text = "Form1";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chDynamicSeries)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbBeta)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -118,6 +131,7 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.DataVisualization.Charting.Chart chDynamicSeries;
+        private System.Windows.Forms.TrackBar tbBeta;
     }
 }
 

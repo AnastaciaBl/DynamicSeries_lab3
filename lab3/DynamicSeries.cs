@@ -21,6 +21,12 @@ namespace lab3
             AmountOfElements = Value.Count;
         }
 
+        public DynamicSeries(List<string> index, List<double> value)
+        {
+            Index = index;
+            Value = value;
+        }
+
         private void FillData(List<string> data)
         {
             for (int i = 0; i < data.Count; i++)

@@ -1,70 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace lab3
 {
     class BraunModel
     {
         private DynamicSeries Series { get; }
+        public List<double> NewValues { get; }
         public double B { get; }
-        public double Al { get; }
-        private List<double> A0 { get; set; }
-        private List<double> A1 { get; set; }
-        //private List<double> _A0 { get; set; }
-        //private List<double> _A1 { get; set; }
+        public double B2 { get; }
+        public double AmountOfElements { get; }
 
-        private BraunModel()
+
+        public BraunModel(DynamicSeries series, double b, int amountOfOldValues, int amountOfElements)
         {
-            A0 = new List<double>();
-            A1 = new List<double>();
-            //_A0 = new List<double>();
-            //_A1 = new List<double>();
-
-            //TODO Find out how to set first values for those items
-            //_A1.Add(1);
-            A0.Add(1);
-            A1.Add(1);
-        }
-
-        public BraunModel(DynamicSeries series, double b, double al):this()
-        {
+            AmountOfElements = amountOfElements;
+            NewValues = new List<double>();
             Series = series;
             B = b;
-            Al = al;
 
-            CountCoefs();
+            for(int i=0;i<amountOfOldValues;i++)
+                NewValues.Add(Series.Value[i]);
+
+            CountValues(amountOfOldValues);
         }
 
-        //(8.11) formulas
-        private void CountCoefs()
+        private void CountValues(int startIndex)
         {
-            for (int i = 1; i < Series.AmountOfElements; i++)
+            double a1k = NewValues.Average();
+            double a2k = (Series.Value[startIndex] - Series.Value[0]) / (startIndex - 1);
+            double predict = a1k + a2k;
+            startIndex++;
+            while (startIndex < AmountOfElements)
             {
-                A0.Add(FindA0(i));
-                A1.Add(FindA1(i));
+                a1k = CountA1(predict);
+                a2k = CountA2(a2k, predict);
+                predict = a1k + a2k;
+                NewValues.Add(predict);
+                startIndex++;
             }
         }
 
-        private double FindA0(int index)
+        private double CountA1(double u)
         {
-            double var = Math.Pow(1 - Al, 2);
-            return (1 - var) * Series.Value[index] + var * A0[index - 1] + var * A1[index - 1];
+            return NewValues.Last() + (1 - B * B) * (NewValues.Last() - u);
         }
 
-        private double FindA1(int index)
+        private double CountA2(double previousA2, double u)
         {
-            double Al2 = Al * Al;
-            return Al2 * Series.Value[index] - Al2 * A1[index - 1] - Al2 * A0[index - 1] + A1[index - 1];
+            return previousA2 + (1 - B * B) * (NewValues.Last() - u);
         }
-
-        /*private double Find_A0(int index)
-        {
-            return Series.Value[index] + (1 + B * B) * E[index];
-        }
-
-        private double Find_A1(int index)
-        {
-            return _A1[index - 1] + (1 - B * B) * E[index];
-        }*/
     }
 }

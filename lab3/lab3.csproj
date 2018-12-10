@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="BraunModel.cs" />
     <Compile Include="DynamicSeries.cs" />
+    <Compile Include="ExponentialSmoothing.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

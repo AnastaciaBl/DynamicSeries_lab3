@@ -38,7 +38,7 @@ namespace lab3
                         }
                         Series = new DynamicSeries(fields, data);
                         ShowDynamicSeries();
-                        BraunModel bm = new BraunModel(Series, 0.5, 0.5);
+                        BraunModel bm = new BraunModel(Series, 0.3, 10, Series.AmountOfElements);
                     }
                 }
             }
