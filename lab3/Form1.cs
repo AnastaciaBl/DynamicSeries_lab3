@@ -14,6 +14,9 @@ namespace lab3
     public partial class Form1 : Form
     {
         public DynamicSeries Series { get; set; }
+        public BraunModel BraunSeries { get; set; }
+        public LinearModel LinearSeries { get; set; }
+        public ExponentialModel ExponentialSeries { get; set; }
 
         public Form1()
         {
@@ -37,8 +40,13 @@ namespace lab3
                             data.Add(reader.ReadLine());
                         }
                         Series = new DynamicSeries(fields, data);
+                        BraunSeries = new BraunModel(Series, (double)tbBeta.Value / 100, 10, 10);
+                        LinearSeries = new LinearModel(Series, 0.3, 0.6, 0.8);
+                        ExponentialSeries = new ExponentialModel(Series, 0.3, 0.6, 0.8);
                         ShowDynamicSeries();
-                        BraunModel bm = new BraunModel(Series, 0.3, 10, Series.AmountOfElements);
+                        ShowBrownModel();
+                        ShowLinearModel();
+                        ShowExponentialModel();
                     }
                 }
             }
@@ -47,10 +55,102 @@ namespace lab3
         private void ShowDynamicSeries()
         {
             chDynamicSeries.Series[0].Points.Clear();
+            chLinearModel.Series[0].Points.Clear();
+            chExponentialModel.Series[0].Points.Clear();
             for (int i = 0; i < Series.AmountOfElements; i++)
             {
-                chDynamicSeries.Series[0].Points.AddXY(Series.Index[i], Series.Value[i]);
+                chDynamicSeries.Series[0].Points.AddXY(i, Series.Value[i]);
+                chLinearModel.Series[0].Points.AddXY(i, Series.Value[i]);
+                chExponentialModel.Series[0].Points.AddXY(i, Series.Value[i]);
             }
+        }
+
+        private void ShowBrownModel()
+        {
+            chDynamicSeries.Series[1].Points.Clear();
+            for (int i = 0; i < BraunSeries.NewValues.Count; i++)
+            {
+                chDynamicSeries.Series[1].Points.AddXY(i, BraunSeries.NewValues[i]);
+            }
+        }
+
+        private void ShowLinearModel()
+        {
+            chLinearModel.Series[1].Points.Clear();
+            for (int i = 0; i < BraunSeries.NewValues.Count; i++)
+            {
+                chLinearModel.Series[1].Points.AddXY(i, LinearSeries.NewValues[i]);
+            }
+        }
+
+        private void ShowExponentialModel()
+        {
+            chExponentialModel.Series[1].Points.Clear();
+            for (int i = 0; i < BraunSeries.NewValues.Count; i++)
+            {
+                chExponentialModel.Series[1].Points.AddXY(i, ExponentialSeries.NewValues[i]);
+            }
+        }
+
+        private void tbBeta_ValueChanged(object sender, EventArgs e)
+        {
+            double beta = (double)tbBeta.Value / 100;
+            BraunSeries = new BraunModel(Series, beta, 10, 10);
+            ShowBrownModel();
+        }
+
+        private void tbLB1_ValueChanged(object sender, EventArgs e)
+        {
+            double b1 = (double)tbLB1.Value / 100;
+            double b2 = (double)tbLB2.Value / 100;
+            double b3 = (double)tbLB3.Value / 100;
+            LinearSeries = new LinearModel(Series, b1, b2, b3);
+            ShowLinearModel();
+        }
+
+        private void tbLB2_ValueChanged(object sender, EventArgs e)
+        {
+            double b1 = (double)tbLB1.Value / 100;
+            double b2 = (double)tbLB2.Value / 100;
+            double b3 = (double)tbLB3.Value / 100;
+            LinearSeries = new LinearModel(Series, b1, b2, b3);
+            ShowLinearModel();
+        }
+
+        private void tbLB3_ValueChanged(object sender, EventArgs e)
+        {
+            double b1 = (double)tbLB1.Value / 100;
+            double b2 = (double)tbLB2.Value / 100;
+            double b3 = (double)tbLB3.Value / 100;
+            LinearSeries = new LinearModel(Series, b1, b2, b3);
+            ShowLinearModel();
+        }
+
+        private void tbEB1_ValueChanged(object sender, EventArgs e)
+        {
+            double b1 = (double)tbEB1.Value / 100;
+            double b2 = (double)tbEB2.Value / 100;
+            double b3 = (double)tbEB3.Value / 100;
+            ExponentialSeries = new ExponentialModel(Series, b1, b2, b3);
+            ShowExponentialModel();
+        }
+
+        private void tbEB2_ValueChanged(object sender, EventArgs e)
+        {
+            double b1 = (double)tbEB1.Value / 100;
+            double b2 = (double)tbEB2.Value / 100;
+            double b3 = (double)tbEB3.Value / 100;
+            ExponentialSeries = new ExponentialModel(Series, b1, b2, b3);
+            ShowExponentialModel();
+        }
+
+        private void tbEB3_ValueChanged(object sender, EventArgs e)
+        {
+            double b1 = (double)tbEB1.Value / 100;
+            double b2 = (double)tbEB2.Value / 100;
+            double b3 = (double)tbEB3.Value / 100;
+            ExponentialSeries = new ExponentialModel(Series, b1, b2, b3);
+            ShowExponentialModel();
         }
     }
 }
